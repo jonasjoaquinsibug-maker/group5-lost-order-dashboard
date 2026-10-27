@@ -39,6 +39,9 @@ h1 { font-weight: 600 !important; letter-spacing: -.005em; }
 h3 { font-size: 1.45rem !important; font-weight: 600 !important; padding-top: .2rem !important; }
 [data-testid="stMetricValue"] { font-weight: 600; font-size: clamp(1.5rem, 2.1vw, 2.1rem) !important; }
 [data-testid="stMetricLabel"] p { font-size: 0.95rem; color: #4a5566; }
+[data-testid="stMetricLabel"], [data-testid="stMetricLabel"] *, [data-testid="stMetricDelta"], [data-testid="stMetricDelta"] * {
+  white-space: normal !important; overflow: visible !important; text-overflow: clip !important; }
+[data-testid="stMetricDelta"] { height: auto !important; line-height: 1.25; }
 section[data-testid="stSidebar"] { border-right: 1px solid #d7dde4; }
 .note { border-left: 3px solid #0e6b73; background: #ffffff; padding: 10px 14px; border-radius: 0 4px 4px 0;
         font-size: 0.95rem; line-height: 1.5; margin: -4px 0 6px 0; color: #18202e; }
@@ -195,6 +198,8 @@ else:
 if len(df) < 50:
     st.warning("Fewer than 50 orders match these filters. Widen the filters to get reliable numbers.")
     st.stop()
+if len(df) < 500:
+    st.info(f"Only {len(df):,} orders match these filters, so monthly rates and small groups will swing a lot by chance. Read the overall figures, not single months.")
 
 tab1, tab2, tab3, tab4 = st.tabs(["Overview", "Can we predict lost orders?", "What should we do?", "Data and method"])
 
